@@ -123,6 +123,8 @@
 	
 	CGSize zoomViewSize   = viewForZooming.frame.size;
 	CGSize scrollViewSize = self.frame.size;
+	if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+		scrollViewSize = CGSizeMake(scrollViewSize.height, scrollViewSize.width);
 	viewForZooming.frame = CGRectMake(0, 0, zoomViewSize.width, zoomViewSize.height);
 	self.contentSize = zoomViewSize;
 	self.contentOffset = CGPointMake(MAX(MIN(zoomViewSize.width*centerPoint.x/scrollViewSize.width - scrollViewSize.width/2, zoomViewSize.width - scrollViewSize.width), 0),
