@@ -12,11 +12,6 @@
 }
 
 - (void)setPagingMode {
-	NSLog(@"setPagingMode");
-	if (scrollViewMode != ScrollViewModeAnimatingFullZoomOut && scrollViewMode != ScrollViewModeNotInitialized)
-		return; // setPagingMode is called after a delay, so something might have changed since it was scheduled
-	scrollViewMode = ScrollViewModeInTransition; // to ignore scrollViewDidScroll when setting contentOffset
-	
 	// reposition pages side by side, add them back to the view
 	CGSize pageSize = [self pageSize];
 	NSUInteger page = 0;
@@ -36,7 +31,7 @@
 
 - (void)setZoomingMode {
 	NSLog(@"setZoomingMode");
-	scrollViewMode = ScrollViewModeInTransition; // to ignore scrollViewDidScroll when setting contentOffset
+	scrollViewMode = ScrollViewModeZooming; // has to be set early, or else currentPage will be mistakenly reset by scrollViewDidScroll
 	
 	CGSize pageSize = [self pageSize];
 	
@@ -53,16 +48,16 @@
 	scrollView.showsVerticalScrollIndicator = scrollView.showsHorizontalScrollIndicator = YES;
 	scrollView.contentSize = pageSize;
 	scrollView.contentOffset = CGPointZero;
-	
-	scrollViewMode = ScrollViewModeZooming;
+	scrollView.bouncesZoom = YES;
 }
 
 - (void)loadView {
 	CGRect frame = [UIScreen mainScreen].applicationFrame;
-	scrollView = [[UIScrollView alloc] initWithFrame:frame];
+	scrollView = [[ZoomScrollView alloc] initWithFrame:frame];
 	scrollView.delegate = self;
 	scrollView.maximumZoomScale = 2.0f;
 	scrollView.minimumZoomScale = 1.0f;
+	scrollView.zoomInOnDoubleTap = scrollView.zoomOutOnDoubleTap = YES;
 	
 	UIImageView *imageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"red.png"]];
 	UIImageView *imageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"green.png"]];
@@ -93,13 +88,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
-	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(setPagingMode) object:nil];
-	CGPoint offset = scrollView.contentOffset;
-	NSLog(@"scrollViewDidScroll: (%f, %f)", offset.x, offset.y);
-	if (scrollViewMode == ScrollViewModeAnimatingFullZoomOut && ABS(offset.x) < 1e-5 && ABS(offset.y) < 1e-5)
-		// bouncing is still possible (and actually happened for me), so wait a bit more to be sure
-		[self performSelector:@selector(setPagingMode) withObject:nil afterDelay:0.1];
-	else if (scrollViewMode == ScrollViewModePaging)
+	if (scrollViewMode == ScrollViewModePaging)
 		[self setCurrentPage:roundf(scrollView.contentOffset.x / [self pageSize].width)];
 }
 
@@ -110,16 +99,8 @@
 }
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)aScrollView withView:(UIView *)view atScale:(float)scale {
-	NSLog(@"scrollViewDidEndZooming: scale = %f", scale);
-	if (fabsf(scale - 1.0) < 1e-5) {
-		if (scrollView.zoomBouncing)
-			NSLog(@"scrollViewDidEndZooming, but zoomBouncing is still true!");
-
-		// cannot call setPagingMode now because scrollView will bounce after a call to this method, resetting contentOffset to (0, 0)
-		scrollViewMode = ScrollViewModeAnimatingFullZoomOut;
-		// however sometimes bouncing will not take place
-		[self performSelector:@selector(setPagingMode) withObject:nil afterDelay:0.2];
-	}
+	if (scrollView.zoomScale == scrollView.minimumZoomScale)
+		[self setPagingMode];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
