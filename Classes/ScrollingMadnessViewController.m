@@ -4,7 +4,11 @@
 @implementation ScrollingMadnessViewController
 
 - (CGSize)pageSize {
-	return scrollView.frame.size; // a good place to adjust for interface rotation in the future
+	CGSize pageSize = scrollView.frame.size;
+	if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+		return CGSizeMake(pageSize.height, pageSize.width);
+	else
+		return pageSize;
 }
 
 - (void)setPagingMode {
@@ -115,6 +119,19 @@
 		scrollViewMode = ScrollViewModeAnimatingFullZoomOut;
 		// however sometimes bouncing will not take place
 		[self performSelector:@selector(setPagingMode) withObject:nil afterDelay:0.2];
+	}
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+	return YES;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+	if (scrollViewMode == ScrollViewModePaging) {
+		scrollViewMode = ScrollViewModeNotInitialized;
+		[self setPagingMode];
+	} else {
+		[self setZoomingMode];
 	}
 }
 
