@@ -28,7 +28,7 @@ To decide if the touch is to be handled or to be forwarded, UIScrollView starts 
 These sequence of events can be altered by configuration of UIScrollView:
 
 * If `delaysContentTouches` is NO, then no timer is used — the events immediately go to the inner control (but then are canceled if you move your finger far enough)
-* If `cancelsTouches` is NO, then once the events are sent to a control, scrolling will never happen.
+* If `canCancelContentTouches` is NO, then once the events reach the inner view, scrolling will never happen.
 
 Note that it is UIScrollView that receives *all* `touchesBegin`, `touchesMoved`, `touchesEnded` and `touchesCanceled` events from CocoaTouch (because its `hitTest` tells it to do so). It then forwards them to the inner view if it wants to, as long as it wants to.
 
