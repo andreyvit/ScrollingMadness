@@ -260,9 +260,8 @@
 @implementation ZoomScrollView (EventForwarding)
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	id delegate = self.delegate;
-	if ([delegate respondsToSelector:@selector(zoomScrollView:touchesBegan:withEvent:)])
-		_ignoreSubsequentTouches = [delegate zoomScrollView:self touchesBegan:touches withEvent:event];
+	if ([_realDelegate respondsToSelector:@selector(zoomScrollView:touchesBegan:withEvent:)])
+		_ignoreSubsequentTouches = [_realDelegate zoomScrollView:self touchesBegan:touches withEvent:event];
 	if (_ignoreSubsequentTouches)
 		return;
 	if ([touches count] == 1 && [[touches anyObject] tapCount] == 2)
@@ -272,9 +271,8 @@
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-	id delegate = self.delegate;
-	if ([delegate respondsToSelector:@selector(zoomScrollView:touchesMoved:withEvent:)])
-		if ([delegate zoomScrollView:self touchesMoved:touches withEvent:event]) {
+	if ([_realDelegate respondsToSelector:@selector(zoomScrollView:touchesMoved:withEvent:)])
+		if ([_realDelegate zoomScrollView:self touchesMoved:touches withEvent:event]) {
 			_ignoreSubsequentTouches = YES;
 			[super touchesCancelled:touches withEvent:event];
 		}
@@ -284,9 +282,8 @@
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	id delegate = self.delegate;
-	if ([delegate respondsToSelector:@selector(zoomScrollView:touchesEnded:withEvent:)])
-		if ([delegate zoomScrollView:self touchesEnded:touches withEvent:event]) {
+	if ([_realDelegate respondsToSelector:@selector(zoomScrollView:touchesEnded:withEvent:)])
+		if ([_realDelegate zoomScrollView:self touchesEnded:touches withEvent:event]) {
 			_ignoreSubsequentTouches = YES;
 			[super touchesCancelled:touches withEvent:event];
 		}
@@ -296,9 +293,8 @@
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-	id delegate = self.delegate;
-	if ([delegate respondsToSelector:@selector(zoomScrollView:touchesCancelled:withEvent:)])
-		if ([delegate zoomScrollView:self touchesCancelled:touches withEvent:event])
+	if ([_realDelegate respondsToSelector:@selector(zoomScrollView:touchesCancelled:withEvent:)])
+		if ([_realDelegate zoomScrollView:self touchesCancelled:touches withEvent:event])
 			_ignoreSubsequentTouches = YES;
 	[super touchesCancelled:touches withEvent:event];
 }
