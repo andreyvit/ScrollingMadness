@@ -62,7 +62,7 @@
 	UIView *_zoomWrapperView;               // the disposable wrapper view actually used for zooming
 }
 
-// if both are enabled, zoom-in takes precedence unless the view is at maximum zoom scale
+// if both are enabled, zoom-out takes precedence unless the view is at minimum zoom scale
 @property(nonatomic, assign) BOOL zoomInOnDoubleTap;
 @property(nonatomic, assign) BOOL zoomOutOnDoubleTap;
 

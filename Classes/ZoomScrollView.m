@@ -145,10 +145,10 @@
 - (BOOL)_handleDoubleTapWith:(UITouch *)touch {
 	if (!_zoomInOnDoubleTap && !_zoomOutOnDoubleTap)
 		return NO;
-	if (_zoomInOnDoubleTap && ABS(_zoomScale - _realMaximumZoomScale) > 1e-5)
-		[self setZoomScale:_realMaximumZoomScale centeredAt:[touch locationInView:self] animated:YES];
-	else if (_zoomOutOnDoubleTap && ABS(_zoomScale - _realMinimumZoomScale) > 1e-5)
+	if (_zoomOutOnDoubleTap && ABS(_zoomScale - _realMinimumZoomScale) > 1e-5)
 		[self setZoomScale:_realMinimumZoomScale animated:YES];
+	else if (_zoomInOnDoubleTap && ABS(_zoomScale - _realMaximumZoomScale) > 1e-5)
+		[self setZoomScale:_realMaximumZoomScale centeredAt:[touch locationInView:self] animated:YES];
 	return YES;
 }
 
