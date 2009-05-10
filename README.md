@@ -6,6 +6,33 @@ Note: the sample code in this project implements both tricks. Furthermore, the s
 The example code in the HEAD uses ZoomScrollView, but one of the earlier commits applies Trick 1 to a plain UIScrollView, so if that's what you are looking for, go grab it in commit history.
 
 
+Cover story: How does UIScrollView work?
+----------------------------------------
+
+To do anything non-trivial with UIScrollView, you must know how it works internally.
+
+UIScrollView overrides `hitTest` method and always returns itself, so that all touch events (`touchesBegan`, `touchesMoved`, `touchesEnded`, `touchesCancelled`) go into it. Then inside `touchesBegan`, `touchesMoved` etc it checks if it's interested in the event, and either handles or passes it on to the inner views.
+
+To decide if the touch is to be handled or to be forwarded, UIScrollView starts a timer when you first touch it:
+
+* If you haven't moved your finger significantly within 150ms, it passes the event on to the inner view.
+
+* If you have moved your finger significantly within 150ms, it starts scrolling (and never passes the event to the inner view).
+
+   Note how when you touch a table (which is a subclass of scroll view) and start scrolling immediately, the row that you touched is never highlighted.
+
+* If you have *not* moved your finger significantly within 150ms and UIScrollView started passing the events to the inner view, but *then* you have moved the finger far enough for the scrolling to begin, UIScrollView calls `touchesCancelled` on the inner view and starts scrolling.
+
+   Note how when you touch a table, hold your finger a bit and then start scrolling, the row that you touched is highlighted first, but de-highlighted afterwards.
+
+These sequence of events can be altered by configuration of UIScrollView:
+
+* If `delaysContentTouches` is NO, then no timer is used — the events immediately go to the inner control (but then are canceled if you move your finger far enough)
+* If `cancelsTouches` is NO, then once the events are sent to a control, scrolling will never happen.
+
+Note that it is UIScrollView that receives *all* `touchesBegin`, `touchesMoved`, `touchesEnded` and `touchesCanceled` events from CocoaTouch (because its `hitTest` tells it to do so). It then forwards them to the inner view if it wants to, as long as it wants to.
+
+
 Trick 1: Emulating Photos app swiping/zooming/scrolling with a single UIScrollView
 ----------------------------------------------------------------------------------
 
@@ -103,6 +130,124 @@ Instead of reading 'delegate' property (which currently returns the scroll
 view itself), you should read 'zoomScrollViewDelegate' property which
 correctly returns your delegate. Setting works with either of them (so you
 can still set your delegate in the Interface Builder).
+
+
+Possible trick 3: How to get nested UIScrollViews to work
+---------------------------------------------------------
+
+I haven't tried this one, but outlined a possible solution in an answer to this Stack Overflow question: http://stackoverflow.com/questions/728014/prevent-diagonal-scrolling-in-uiscrollview/; now I'm merely reprinting my idea here.
+
+Suppose you want your outer scroll view to page-scroll horizontally, and your inner scroll views (one scroll view per page) to scroll vertically. You want to give preference to vertical scrolling, so that once the user touches the view and starts moving his finger (even slightly), the view starts scrolling in vertical direction; but when the user moves his finger in horizontal direction far enough, you want to cancel vertical scrolling and start horizontal scrolling.
+
+The strategy is to let the outer scroll view only handle horizontal scrolling. You want to subclass your outer UIScrollView (and, say, name your subclass RemorsefulScrollView), so that instead of the default behaviour it immediately forwards all events to the inner view, and only when significant horizontal movement is detected it scrolls.
+
+How to make RemorsefulScrollView behave that way?
+
+* It looks like disabling vertical scrolling and setting `delaysContentTouches` to NO should make nested UIScrollViews to work. Unfortunately, it does not; UIScrollView appears to do some additional filtering for fast motions (which cannot be disabled), so that even if UIScrollView can only be scrolled horizontally, it will always eat up (and ignore) fast enough vertical motions.
+
+  The effect is so severe that vertical scrolling inside a nested scroll view is unusable. (It appears that you have got exactly this setup, so try it: hold a finger for 150ms, and then move it in vertical direction — nested UIScrollView works as expected then!)
+
+* This means you cannot use UIScrollView's code for event handling; you have to override all four touch handling methods in RemorsefulScrollView and do your own processing first, only forwarding the event to `super` (UIScrollView) if you have decided to go with horizontal scrolling.
+
+* However you have to pass `touchesBegan` to UIScrollView, because you want it to remember a base coordinate for future horizontal scrolling (if you later decide it *is* a horizontal scrolling). You won't be able to send `touchesBegan` to UIScrollView later, because you cannot store the `touches` argument: it contains objects that will be mutated before the next `touchesMoved` event, and you cannot reproduce the old state.
+
+  So you have to pass `touchesBegan` to UIScrollView immediately, but you will hide any further `touchesMoved` events from it until you decide to scroll horizontally. No `touchesMoved` means no scrolling, so this initial `touchesBegan` will do no harm. But do set `delaysContentTouches` to NO, so that no additional surprise timers interfere.
+
+  (Offtopic — unlike you, UIScrollView *can* store touches properly and can reproduce and forward the original `touchesBegan` event later. It has an unfair advantage of using unpublished APIs, so can clone touch objects before they are mutated.)
+  
+* Given that you always forward `touchesBegan`, you also have to forward `touchesCancelled` and `touchesEnded`. You have to turn `touchesEnded` into `touchesCancelled`, however, because UIScrollView would interpret `touchesBegan`, `touchesEnded` sequence as a touch-click, and would forward it to the inner view. You are already forwarding the proper events yourself, so you never want UIScrollView to forward anything.
+
+Basically here's pseudocode for what you need to do. For simplicity, I never allow horizontal scrolling after multitouch event has occurred.
+
+    // RemorsefulScrollView.h
+    
+    @interface RemorsefulScrollView : UIScrollView {
+      CGPoint _originalPoint;
+      BOOL _isHorizontalScroll, _isMultitouch;
+      UIView *_currentChild;
+    }
+    @end
+    
+    // RemorsefulScrollView.m
+    
+    // the numbers from an example in Apple docs, may need to tune them
+    #define kThresholdX 12.0f
+    #define kThresholdY 4.0f
+    
+    @implementation RemorsefulScrollView
+    
+    - (id)initWithFrame:(CGRect)frame {
+      if (self = [super initWithFrame:frame]) {
+        self.delaysContentTouches = NO;
+      }
+      return self;
+    }
+    
+    - (id)initWithCoder:(NSCoder *)coder {
+      if (self = [super initWithCoder:coder]) {
+        self.delaysContentTouches = NO;
+      }
+      return self;
+    }
+    
+    - (UIView *)honestHitTest:(CGPoint)point withEvent:(UIEvent *)event {
+      UIView *result = nil;
+      for (UIView *child in self.subviews)
+        if ([child pointInside:point withEvent:event])
+          if ((result = [child hitTest:point withEvent:event]) != nil)
+            break;
+      return result;
+    }
+    
+    - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    	[super touchesBegan:touches withEvent:event]; // always forward touchesBegan -- there's no way to forward it later
+    	if (_isHorizontalScroll)
+    	  return; // UIScrollView is in charge now
+    	if ([touches count] == [[event touchesForView:self] count]) { // initial touch
+    	  _originalPoint = [[touches anyObject] locationInView:self];
+        _currentChild = [self honestHitTest:_originalPoint withEvent:event];
+        _isMultitouch = NO;
+    	}
+      _isMultitouch ||= ([[event touchesForView:self] count] > 1);
+      [_currentChild touchesBegan:touches withEvent:event];
+    }
+    
+    - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+      if (!_isHorizontalScroll && !_isMultitouch) {
+        CGPoint point = [[touches anyObject] locationInView:self];
+        if (fabsf(_originalPoint.x - point.x) > kThresholdX && fabsf(_originalPoint.y - point.y) < kThresholdY) {
+          _isHorizontalScroll = YES;
+          [_currentChild touchesCancelled:[event touchesForView:self] withEvent:event]
+        }
+      }
+      if (_isHorizontalScroll)
+      	[super touchesMoved:touches withEvent:event]; // UIScrollView only kicks in on horizontal scroll
+      else
+        [_currentChild touchesMoved:touches withEvent:event];
+    }
+    
+    - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+      if (_isHorizontalScroll)
+      	[super touchesEnded:touches withEvent:event];
+    	else {
+      	[super touchesCancelled:touches withEvent:event];
+      	[_currentChild touchesEnded:touches withEvent:event];
+    	}
+    }
+
+    - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+  	  [super touchesCancelled:touches withEvent:event];
+  	  if (!_isHorizontalScroll)
+      	[_currentChild touchesCancelled:touches withEvent:event];
+    }
+
+    @end
+
+I have not tried to run or even to compile this (and typed the whole class in a plain text editor), but you can start with the above and hopefully get it working.
+
+The only hidden catch I see is that if you add any non-UIScrollView child views to RemorsefulScrollView, the touch events you forward to a child may arrive back to you via responder chain, if the child does not always handle touches like UIScrollView does. A bullet-proof RemorsefulScrollView implementation would protect against `touchesXxx` reentry.
+
+Hopefully some day I will implement this (or receive a working implementation from some nice guy/girl) and include it into ZoomScrollView and/or publish it as a separate class inside ScrollingMadness project.
 
 
 FAQ: Why is zooming-to-paging transition in the example so complicated?
