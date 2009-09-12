@@ -5,11 +5,11 @@
 
 @interface ScrollingMadnessAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    ScrollingMadnessViewController *viewController;
+    UIViewController *viewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet ScrollingMadnessViewController *viewController;
+@property (nonatomic, retain) IBOutlet UIViewController *viewController;
 
 @end
 

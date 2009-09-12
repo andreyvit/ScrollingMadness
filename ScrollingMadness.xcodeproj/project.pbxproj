@@ -18,6 +18,9 @@
 		430F58E00FB2C31300593263 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 430F58DD0FB2C31300593263 /* green.png */; };
 		430F58E10FB2C31300593263 /* yellow-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 430F58DE0FB2C31300593263 /* yellow-blue.png */; };
 		4340DF820FB2DD350053AFF7 /* ZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4340DF810FB2DD350053AFF7 /* ZoomScrollView.m */; };
+		4372D545105A7390000AEE5A /* SampleCatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4372D544105A7390000AEE5A /* SampleCatalogViewController.m */; };
+		4372D5C5105A8A4B000AEE5A /* TrivialScrollingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4372D5C4105A8A4B000AEE5A /* TrivialScrollingViewController.m */; };
+		4372D637105A97B9000AEE5A /* TrivialZoomingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4372D636105A97B9000AEE5A /* TrivialZoomingViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,12 @@
 		430F58DE0FB2C31300593263 /* yellow-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yellow-blue.png"; path = "Resources/yellow-blue.png"; sourceTree = "<group>"; };
 		4340DF800FB2DD350053AFF7 /* ZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomScrollView.h; sourceTree = "<group>"; };
 		4340DF810FB2DD350053AFF7 /* ZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomScrollView.m; sourceTree = "<group>"; };
+		4372D543105A7390000AEE5A /* SampleCatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleCatalogViewController.h; sourceTree = "<group>"; };
+		4372D544105A7390000AEE5A /* SampleCatalogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleCatalogViewController.m; sourceTree = "<group>"; };
+		4372D5C3105A8A4B000AEE5A /* TrivialScrollingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrivialScrollingViewController.h; sourceTree = "<group>"; };
+		4372D5C4105A8A4B000AEE5A /* TrivialScrollingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrivialScrollingViewController.m; sourceTree = "<group>"; };
+		4372D635105A97B9000AEE5A /* TrivialZoomingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrivialZoomingViewController.h; sourceTree = "<group>"; };
+		4372D636105A97B9000AEE5A /* TrivialZoomingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrivialZoomingViewController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ScrollingMadness-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ScrollingMadness-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,12 +66,15 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4372D53F105A71D8000AEE5A /* Samples */,
 				1D3623240D0F684500981E51 /* ScrollingMadnessAppDelegate.h */,
 				1D3623250D0F684500981E51 /* ScrollingMadnessAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* ScrollingMadnessViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* ScrollingMadnessViewController.m */,
 				4340DF800FB2DD350053AFF7 /* ZoomScrollView.h */,
 				4340DF810FB2DD350053AFF7 /* ZoomScrollView.m */,
+				4372D543105A7390000AEE5A /* SampleCatalogViewController.h */,
+				4372D544105A7390000AEE5A /* SampleCatalogViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -116,6 +128,25 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4372D53F105A71D8000AEE5A /* Samples */ = {
+			isa = PBXGroup;
+			children = (
+				4372D5C2105A8A22000AEE5A /* Trivial */,
+			);
+			path = Samples;
+			sourceTree = "<group>";
+		};
+		4372D5C2105A8A22000AEE5A /* Trivial */ = {
+			isa = PBXGroup;
+			children = (
+				4372D5C3105A8A4B000AEE5A /* TrivialScrollingViewController.h */,
+				4372D5C4105A8A4B000AEE5A /* TrivialScrollingViewController.m */,
+				4372D635105A97B9000AEE5A /* TrivialZoomingViewController.h */,
+				4372D636105A97B9000AEE5A /* TrivialZoomingViewController.m */,
+			);
+			path = Trivial;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,6 +209,9 @@
 				1D3623260D0F684500981E51 /* ScrollingMadnessAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* ScrollingMadnessViewController.m in Sources */,
 				4340DF820FB2DD350053AFF7 /* ZoomScrollView.m in Sources */,
+				4372D545105A7390000AEE5A /* SampleCatalogViewController.m in Sources */,
+				4372D5C5105A8A4B000AEE5A /* TrivialScrollingViewController.m in Sources */,
+				4372D637105A97B9000AEE5A /* TrivialZoomingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
