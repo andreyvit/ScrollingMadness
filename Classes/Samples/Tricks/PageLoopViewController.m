@@ -102,7 +102,7 @@
 		[self layoutPhysicalPage:_currentPhysicalPageIndex+1];
 	if (_currentPhysicalPageIndex > 0)
 		[self layoutPhysicalPage:_currentPhysicalPageIndex-1];
-	
+	self.navigationItem.title = [NSString stringWithFormat:@"%d of %d", 1+_currentPageIndex, [self numberOfPages]];
 }
 
 - (void)layoutPages {
