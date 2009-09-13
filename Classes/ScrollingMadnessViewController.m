@@ -40,24 +40,20 @@
 	for (UIView *view in pageViews)
 		if (currentPage != page++)
 			[view removeFromSuperview];
-
-	// move the current page to (0, 0), as if no other pages ever existed
-	[[pageViews objectAtIndex:currentPage] setFrame:CGRectMake(0, 0, pageSize.width, pageSize.height)];
 	
 	scrollView.pagingEnabled = NO;
 	scrollView.showsVerticalScrollIndicator = scrollView.showsHorizontalScrollIndicator = YES;
-	scrollView.contentSize = pageSize;
-	scrollView.contentOffset = CGPointZero;
+	pendingOffsetDelta = scrollView.contentOffset.x;
 	scrollView.bouncesZoom = YES;
 }
 
 - (void)loadView {
 	CGRect frame = [UIScreen mainScreen].applicationFrame;
-	scrollView = [[ZoomScrollView alloc] initWithFrame:frame];
+	scrollView = [[UIScrollView alloc] initWithFrame:frame];
 	scrollView.delegate = self;
-	scrollView.maximumZoomScale = 2.0f;
+	scrollView.maximumZoomScale = 5.0f;
 	scrollView.minimumZoomScale = 1.0f;
-	scrollView.zoomInOnDoubleTap = scrollView.zoomOutOnDoubleTap = YES;
+//	scrollView.zoomInOnDoubleTap = scrollView.zoomOutOnDoubleTap = YES;
 	
 	UIImageView *imageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"red.png"]];
 	UIImageView *imageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"green.png"]];
@@ -79,6 +75,9 @@
 
 - (void)viewDidLoad {
 	scrollViewMode = ScrollViewModeNotInitialized;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
 	[self setPagingMode];
 }
 
@@ -93,14 +92,33 @@
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)aScrollView {
+	NSLog(@"viewForZoomingInScrollView");
 	if (scrollViewMode != ScrollViewModeZooming)
 		[self setZoomingMode];
 	return [pageViews objectAtIndex:currentPage];
 }
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)aScrollView withView:(UIView *)view atScale:(float)scale {
+	NSLog(@"scrollViewDidEndZooming");
 	if (scrollView.zoomScale == scrollView.minimumZoomScale)
 		[self setPagingMode];
+	else if (pendingOffsetDelta > 0) {
+		UIView *view = [pageViews objectAtIndex:currentPage];
+		view.center = CGPointMake(view.center.x - pendingOffsetDelta, view.center.y);
+		CGSize pageSize = [self pageSize];
+		scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x - pendingOffsetDelta, scrollView.contentOffset.y);
+		scrollView.contentSize = CGSizeMake(pageSize.width * scrollView.zoomScale, pageSize.height * scrollView.zoomScale);
+		pendingOffsetDelta = 0;
+	}
+
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+	NSLog(@"scrollViewWillBeginDragging");
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+	NSLog(@"scrollViewDidEndDragging");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

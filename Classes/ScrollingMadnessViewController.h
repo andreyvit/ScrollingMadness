@@ -9,10 +9,11 @@ typedef enum {
 } ScrollViewMode;
 
 @interface ScrollingMadnessViewController : UIViewController <UIScrollViewDelegate> {
-	ZoomScrollView *scrollView;
+	UIScrollView *scrollView;
 	NSArray *pageViews;
 	NSUInteger currentPage;
 	ScrollViewMode scrollViewMode;
+	CGFloat pendingOffsetDelta;
 }
 
 @end
