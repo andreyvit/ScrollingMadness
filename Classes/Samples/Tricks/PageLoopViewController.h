@@ -5,6 +5,8 @@
 	NSMutableArray *_pageViews;
 	UIScrollView *_scrollView;
 	NSUInteger _currentPageIndex;
+	NSUInteger _currentPhysicalPageIndex;
+	BOOL _pageLoopEnabled;
 }
 
 @end
