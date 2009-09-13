@@ -7,6 +7,7 @@
 	NSUInteger _currentPageIndex;
 	NSUInteger _currentPhysicalPageIndex;
 	BOOL _pageLoopEnabled;
+	BOOL _rotationInProgress;
 }
 
 @end

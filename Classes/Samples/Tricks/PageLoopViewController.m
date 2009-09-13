@@ -145,6 +145,9 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	if (_rotationInProgress)
+		return; // UIScrollView layoutSubviews code adjusts contentOffset, breaking our logic
+	
 	NSUInteger newPageIndex = self.physicalPageIndex;
 	if (newPageIndex == _currentPhysicalPageIndex) return;
 	_currentPhysicalPageIndex = newPageIndex;
@@ -169,6 +172,8 @@
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+	_rotationInProgress = YES;
+	
 	// hide other page views because they may overlap the current page during animation
 	for (NSUInteger pageIndex = 0; pageIndex < [self.pageViews count]; ++pageIndex)
 		if ([self isPhysicalPageLoaded:pageIndex])
@@ -192,6 +197,8 @@
 	for (NSUInteger pageIndex = 0; pageIndex < [self.pageViews count]; ++pageIndex)
 		if ([self isPhysicalPageLoaded:pageIndex])
 			[self viewForPhysicalPage:pageIndex].hidden = NO;
+	
+	_rotationInProgress = NO;
 }
 
 - (void)didReceiveMemoryWarning {
