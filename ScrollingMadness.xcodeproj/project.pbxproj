@@ -17,6 +17,8 @@
 		430F58DF0FB2C31300593263 /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 430F58DC0FB2C31300593263 /* red.png */; };
 		430F58E00FB2C31300593263 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 430F58DD0FB2C31300593263 /* green.png */; };
 		430F58E10FB2C31300593263 /* yellow-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 430F58DE0FB2C31300593263 /* yellow-blue.png */; };
+		43409277105C0EBA00CAE3C5 /* PageLoopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43409276105C0EBA00CAE3C5 /* PageLoopViewController.m */; };
+		43409418105C8C5E00CAE3C5 /* ExemplaryPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43409417105C8C5E00CAE3C5 /* ExemplaryPagingViewController.m */; };
 		4340DF820FB2DD350053AFF7 /* ZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4340DF810FB2DD350053AFF7 /* ZoomScrollView.m */; };
 		4372D545105A7390000AEE5A /* SampleCatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4372D544105A7390000AEE5A /* SampleCatalogViewController.m */; };
 		4372D5C5105A8A4B000AEE5A /* TrivialScrollingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4372D5C4105A8A4B000AEE5A /* TrivialScrollingViewController.m */; };
@@ -38,6 +40,10 @@
 		430F58DC0FB2C31300593263 /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = red.png; path = Resources/red.png; sourceTree = "<group>"; };
 		430F58DD0FB2C31300593263 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = green.png; path = Resources/green.png; sourceTree = "<group>"; };
 		430F58DE0FB2C31300593263 /* yellow-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yellow-blue.png"; path = "Resources/yellow-blue.png"; sourceTree = "<group>"; };
+		43409275105C0EBA00CAE3C5 /* PageLoopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageLoopViewController.h; sourceTree = "<group>"; };
+		43409276105C0EBA00CAE3C5 /* PageLoopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageLoopViewController.m; sourceTree = "<group>"; };
+		43409416105C8C5E00CAE3C5 /* ExemplaryPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExemplaryPagingViewController.h; sourceTree = "<group>"; };
+		43409417105C8C5E00CAE3C5 /* ExemplaryPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExemplaryPagingViewController.m; sourceTree = "<group>"; };
 		4340DF800FB2DD350053AFF7 /* ZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomScrollView.h; sourceTree = "<group>"; };
 		4340DF810FB2DD350053AFF7 /* ZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomScrollView.m; sourceTree = "<group>"; };
 		4372D543105A7390000AEE5A /* SampleCatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleCatalogViewController.h; sourceTree = "<group>"; };
@@ -130,10 +136,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		43409274105C0DCB00CAE3C5 /* Tricks */ = {
+			isa = PBXGroup;
+			children = (
+				43409275105C0EBA00CAE3C5 /* PageLoopViewController.h */,
+				43409276105C0EBA00CAE3C5 /* PageLoopViewController.m */,
+			);
+			path = Tricks;
+			sourceTree = "<group>";
+		};
+		43409414105C8BAC00CAE3C5 /* Exemplary */ = {
+			isa = PBXGroup;
+			children = (
+				43409416105C8C5E00CAE3C5 /* ExemplaryPagingViewController.h */,
+				43409417105C8C5E00CAE3C5 /* ExemplaryPagingViewController.m */,
+			);
+			path = Exemplary;
+			sourceTree = "<group>";
+		};
 		4372D53F105A71D8000AEE5A /* Samples */ = {
 			isa = PBXGroup;
 			children = (
 				4372D5C2105A8A22000AEE5A /* Trivial */,
+				43409414105C8BAC00CAE3C5 /* Exemplary */,
+				43409274105C0DCB00CAE3C5 /* Tricks */,
 			);
 			path = Samples;
 			sourceTree = "<group>";
@@ -212,6 +238,8 @@
 				4372D545105A7390000AEE5A /* SampleCatalogViewController.m in Sources */,
 				4372D5C5105A8A4B000AEE5A /* TrivialScrollingViewController.m in Sources */,
 				4372D637105A97B9000AEE5A /* TrivialZoomingViewController.m in Sources */,
+				43409277105C0EBA00CAE3C5 /* PageLoopViewController.m in Sources */,
+				43409418105C8C5E00CAE3C5 /* ExemplaryPagingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

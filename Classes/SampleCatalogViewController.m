@@ -2,6 +2,8 @@
 #import "SampleCatalogViewController.h"
 #import "TrivialScrollingViewController.h"
 #import "TrivialZoomingViewController.h"
+#import "ExemplaryPagingViewController.h"
+#import "PageLoopViewController.h"
 
 @interface Sample : NSObject {
 	Class _klass;
@@ -83,6 +85,14 @@
 									 items:[NSArray arrayWithObjects:
 											[Sample sampleWithKlass:[TrivialScrollingViewController class] name:@"Scrolling" description:@"UIImageView inside UIScrollView"],
 											[Sample sampleWithKlass:[TrivialZoomingViewController class] name:@"Zooming" description:@"1 UIImageView, 1 UIScrollView, zoom 0.1–1.0"],
+											nil]],
+					 [Section sectionNamed:@"Exemplary"
+									 items:[NSArray arrayWithObjects:
+											[Sample sampleWithKlass:[ExemplaryPagingViewController class] name:@"Paging" description:@"Lazy loading, rotation"],
+											nil]],
+					 [Section sectionNamed:@"Tricks"
+									 items:[NSArray arrayWithObjects:
+											[Sample sampleWithKlass:[PageLoopViewController class] name:@"Page Loop" description:@"3 images paged in a cycle"],
 											nil]],
 					 nil];
 }
