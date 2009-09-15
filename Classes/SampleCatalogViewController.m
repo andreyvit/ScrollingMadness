@@ -2,9 +2,12 @@
 #import "SampleCatalogViewController.h"
 #import "TrivialScrollingViewController.h"
 #import "TrivialZoomingViewController.h"
+#import "TrivialCircleZoomingViewController.h"
 #import "ExemplaryPagingViewController.h"
+#import "ExemplaryCircleZoomingViewController.h"
 #import "PageLoopViewController.h"
 #import "ScrollingMadnessViewController.h"
+
 
 @interface Sample : NSObject {
 	Class _klass;
@@ -86,10 +89,12 @@
 									 items:[NSArray arrayWithObjects:
 											[Sample sampleWithKlass:[TrivialScrollingViewController class] name:@"Scrolling" description:@"UIImageView inside UIScrollView"],
 											[Sample sampleWithKlass:[TrivialZoomingViewController class] name:@"Zooming" description:@"1 UIImageView, 1 UIScrollView, zoom 0.1–1.0"],
+											[Sample sampleWithKlass:[TrivialCircleZoomingViewController class] name:@"Naïve Circle Zooming" description:@"Scaled vector graphics is pixelated"],
 											nil]],
 					 [Section sectionNamed:@"Exemplary"
 									 items:[NSArray arrayWithObjects:
 											[Sample sampleWithKlass:[ExemplaryPagingViewController class] name:@"Paging" description:@"Lazy loading, rotation"],
+											[Sample sampleWithKlass:[ExemplaryCircleZoomingViewController class] name:@"Smart Circle Zooming" description:@"Look, ma, no pixelation!"],
 											nil]],
 					 [Section sectionNamed:@"Tricks"
 									 items:[NSArray arrayWithObjects:

@@ -19,6 +19,9 @@
 		430F58E10FB2C31300593263 /* yellow-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 430F58DE0FB2C31300593263 /* yellow-blue.png */; };
 		43409277105C0EBA00CAE3C5 /* PageLoopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43409276105C0EBA00CAE3C5 /* PageLoopViewController.m */; };
 		43409418105C8C5E00CAE3C5 /* ExemplaryPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43409417105C8C5E00CAE3C5 /* ExemplaryPagingViewController.m */; };
+		43409B43105FCE7C00CAE3C5 /* TrivialCircleZoomingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43409B42105FCE7C00CAE3C5 /* TrivialCircleZoomingViewController.m */; };
+		43409B46105FCEB800CAE3C5 /* TrivialCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43409B45105FCEB800CAE3C5 /* TrivialCircleView.m */; };
+		43409B57105FD77200CAE3C5 /* ExemplaryCircleZoomingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43409B56105FD77200CAE3C5 /* ExemplaryCircleZoomingViewController.m */; };
 		4340DF820FB2DD350053AFF7 /* ZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4340DF810FB2DD350053AFF7 /* ZoomScrollView.m */; };
 		4372D545105A7390000AEE5A /* SampleCatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4372D544105A7390000AEE5A /* SampleCatalogViewController.m */; };
 		4372D5C5105A8A4B000AEE5A /* TrivialScrollingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4372D5C4105A8A4B000AEE5A /* TrivialScrollingViewController.m */; };
@@ -44,6 +47,12 @@
 		43409276105C0EBA00CAE3C5 /* PageLoopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageLoopViewController.m; sourceTree = "<group>"; };
 		43409416105C8C5E00CAE3C5 /* ExemplaryPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExemplaryPagingViewController.h; sourceTree = "<group>"; };
 		43409417105C8C5E00CAE3C5 /* ExemplaryPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExemplaryPagingViewController.m; sourceTree = "<group>"; };
+		43409B41105FCE7C00CAE3C5 /* TrivialCircleZoomingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrivialCircleZoomingViewController.h; sourceTree = "<group>"; };
+		43409B42105FCE7C00CAE3C5 /* TrivialCircleZoomingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrivialCircleZoomingViewController.m; sourceTree = "<group>"; };
+		43409B44105FCEB800CAE3C5 /* TrivialCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrivialCircleView.h; sourceTree = "<group>"; };
+		43409B45105FCEB800CAE3C5 /* TrivialCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrivialCircleView.m; sourceTree = "<group>"; };
+		43409B55105FD77200CAE3C5 /* ExemplaryCircleZoomingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExemplaryCircleZoomingViewController.h; sourceTree = "<group>"; };
+		43409B56105FD77200CAE3C5 /* ExemplaryCircleZoomingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExemplaryCircleZoomingViewController.m; sourceTree = "<group>"; };
 		4340DF800FB2DD350053AFF7 /* ZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomScrollView.h; sourceTree = "<group>"; };
 		4340DF810FB2DD350053AFF7 /* ZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomScrollView.m; sourceTree = "<group>"; };
 		4372D543105A7390000AEE5A /* SampleCatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleCatalogViewController.h; sourceTree = "<group>"; };
@@ -150,6 +159,8 @@
 			children = (
 				43409416105C8C5E00CAE3C5 /* ExemplaryPagingViewController.h */,
 				43409417105C8C5E00CAE3C5 /* ExemplaryPagingViewController.m */,
+				43409B55105FD77200CAE3C5 /* ExemplaryCircleZoomingViewController.h */,
+				43409B56105FD77200CAE3C5 /* ExemplaryCircleZoomingViewController.m */,
 			);
 			path = Exemplary;
 			sourceTree = "<group>";
@@ -171,6 +182,10 @@
 				4372D5C4105A8A4B000AEE5A /* TrivialScrollingViewController.m */,
 				4372D635105A97B9000AEE5A /* TrivialZoomingViewController.h */,
 				4372D636105A97B9000AEE5A /* TrivialZoomingViewController.m */,
+				43409B41105FCE7C00CAE3C5 /* TrivialCircleZoomingViewController.h */,
+				43409B42105FCE7C00CAE3C5 /* TrivialCircleZoomingViewController.m */,
+				43409B44105FCEB800CAE3C5 /* TrivialCircleView.h */,
+				43409B45105FCEB800CAE3C5 /* TrivialCircleView.m */,
 			);
 			path = Trivial;
 			sourceTree = "<group>";
@@ -240,6 +255,9 @@
 				4372D637105A97B9000AEE5A /* TrivialZoomingViewController.m in Sources */,
 				43409277105C0EBA00CAE3C5 /* PageLoopViewController.m in Sources */,
 				43409418105C8C5E00CAE3C5 /* ExemplaryPagingViewController.m in Sources */,
+				43409B43105FCE7C00CAE3C5 /* TrivialCircleZoomingViewController.m in Sources */,
+				43409B46105FCEB800CAE3C5 /* TrivialCircleView.m in Sources */,
+				43409B57105FD77200CAE3C5 /* ExemplaryCircleZoomingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
