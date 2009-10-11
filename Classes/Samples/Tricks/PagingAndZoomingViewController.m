@@ -1,7 +1,12 @@
 
-#import "ScrollingMadnessViewController.h"
+#import "PagingAndZoomingViewController.h"
 
-@implementation ScrollingMadnessViewController
+
+@interface PagingAndZoomingViewController () <UIScrollViewDelegate>
+@end
+
+
+@implementation PagingAndZoomingViewController
 
 - (CGSize)pageSize {
 	CGSize pageSize = scrollView.frame.size;
@@ -33,9 +38,7 @@
 	NSLog(@"setZoomingMode");
 	scrollViewMode = ScrollViewModeZooming; // has to be set early, or else currentPage will be mistakenly reset by scrollViewDidScroll
 	
-	CGSize pageSize = [self pageSize];
-	
-	// hide all pages besides the current one
+	// hide all pages except the current one
 	NSUInteger page = 0;
 	for (UIView *view in pageViews)
 		if (currentPage != page++)
@@ -53,7 +56,7 @@
 	scrollView.delegate = self;
 	scrollView.maximumZoomScale = 5.0f;
 	scrollView.minimumZoomScale = 1.0f;
-//	scrollView.zoomInOnDoubleTap = scrollView.zoomOutOnDoubleTap = YES;
+	//	scrollView.zoomInOnDoubleTap = scrollView.zoomOutOnDoubleTap = YES;
 	
 	UIImageView *imageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"red.png"]];
 	UIImageView *imageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"green.png"]];
@@ -110,7 +113,7 @@
 		scrollView.contentSize = CGSizeMake(pageSize.width * scrollView.zoomScale, pageSize.height * scrollView.zoomScale);
 		pendingOffsetDelta = 0;
 	}
-
+	
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

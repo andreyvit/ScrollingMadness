@@ -6,7 +6,7 @@
 #import "ExemplaryPagingViewController.h"
 #import "ExemplaryCircleZoomingViewController.h"
 #import "PageLoopViewController.h"
-#import "ScrollingMadnessViewController.h"
+#import "PagingAndZoomingViewController.h"
 
 
 @interface Sample : NSObject {
@@ -99,11 +99,12 @@
 					 [Section sectionNamed:@"Tricks"
 									 items:[NSArray arrayWithObjects:
 											[Sample sampleWithKlass:[PageLoopViewController class] name:@"Page Loop" description:@"3 images paged in a cycle"],
+											[Sample sampleWithKlass:[PagingAndZoomingViewController class] name:@"Paging + Pinch Zooming" description:@"…with a single UIScrollView"],
 											nil]],
-					 [Section sectionNamed:@"ZoomScrollView"
-									 items:[NSArray arrayWithObjects:
-											[Sample sampleWithKlass:[ScrollingMadnessViewController class] name:@"ZoomScrollView demo" description:@"Paging + zooming"],
-											nil]],
+//					 [Section sectionNamed:@"ZoomScrollView"
+//									 items:[NSArray arrayWithObjects:
+//											[Sample sampleWithKlass:[ScrollingMadnessViewController class] name:@"ZoomScrollView demo" description:@"Paging + zooming"],
+//											nil]],
 					 nil];
 }
 
