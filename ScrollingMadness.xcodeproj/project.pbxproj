@@ -21,7 +21,6 @@
 		43409B43105FCE7C00CAE3C5 /* TrivialCircleZoomingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43409B42105FCE7C00CAE3C5 /* TrivialCircleZoomingViewController.m */; };
 		43409B46105FCEB800CAE3C5 /* TrivialCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43409B45105FCEB800CAE3C5 /* TrivialCircleView.m */; };
 		43409B57105FD77200CAE3C5 /* ExemplaryCircleZoomingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43409B56105FD77200CAE3C5 /* ExemplaryCircleZoomingViewController.m */; };
-		4340DF820FB2DD350053AFF7 /* ZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4340DF810FB2DD350053AFF7 /* ZoomScrollView.m */; };
 		4361C7121081C61C0012E124 /* PagingAndZoomingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4361C7111081C61C0012E124 /* PagingAndZoomingViewController.m */; };
 		4372D545105A7390000AEE5A /* SampleCatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4372D544105A7390000AEE5A /* SampleCatalogViewController.m */; };
 		4372D5C5105A8A4B000AEE5A /* TrivialScrollingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4372D5C4105A8A4B000AEE5A /* TrivialScrollingViewController.m */; };
@@ -51,8 +50,6 @@
 		43409B45105FCEB800CAE3C5 /* TrivialCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrivialCircleView.m; sourceTree = "<group>"; };
 		43409B55105FD77200CAE3C5 /* ExemplaryCircleZoomingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExemplaryCircleZoomingViewController.h; sourceTree = "<group>"; };
 		43409B56105FD77200CAE3C5 /* ExemplaryCircleZoomingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExemplaryCircleZoomingViewController.m; sourceTree = "<group>"; };
-		4340DF800FB2DD350053AFF7 /* ZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomScrollView.h; sourceTree = "<group>"; };
-		4340DF810FB2DD350053AFF7 /* ZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomScrollView.m; sourceTree = "<group>"; };
 		4361C7101081C61C0012E124 /* PagingAndZoomingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingAndZoomingViewController.h; sourceTree = "<group>"; };
 		4361C7111081C61C0012E124 /* PagingAndZoomingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingAndZoomingViewController.m; sourceTree = "<group>"; };
 		4372D543105A7390000AEE5A /* SampleCatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleCatalogViewController.h; sourceTree = "<group>"; };
@@ -84,8 +81,6 @@
 				4372D53F105A71D8000AEE5A /* Samples */,
 				1D3623240D0F684500981E51 /* ScrollingMadnessAppDelegate.h */,
 				1D3623250D0F684500981E51 /* ScrollingMadnessAppDelegate.m */,
-				4340DF800FB2DD350053AFF7 /* ZoomScrollView.h */,
-				4340DF810FB2DD350053AFF7 /* ZoomScrollView.m */,
 				4372D543105A7390000AEE5A /* SampleCatalogViewController.h */,
 				4372D544105A7390000AEE5A /* SampleCatalogViewController.m */,
 			);
@@ -248,7 +243,6 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* ScrollingMadnessAppDelegate.m in Sources */,
-				4340DF820FB2DD350053AFF7 /* ZoomScrollView.m in Sources */,
 				4372D545105A7390000AEE5A /* SampleCatalogViewController.m in Sources */,
 				4372D5C5105A8A4B000AEE5A /* TrivialScrollingViewController.m in Sources */,
 				4372D637105A97B9000AEE5A /* TrivialZoomingViewController.m in Sources */,
