@@ -122,8 +122,14 @@
 	CGSize pageSize = [self pageSize];
 	NSUInteger newPageIndex = (self.scrollView.contentOffset.x + pageSize.width / 2) / pageSize.width;
 	if (newPageIndex == _currentPageIndex) return;
-	_currentPageIndex = newPageIndex;
 	
+	// could happen when scrolling fast
+	if (newPageIndex < 0)
+		newPageIndex = 0;
+	else if (newPageIndex >= [self numberOfPages])
+		newPageIndex = [self numberOfPages] - 1;
+
+	_currentPageIndex = newPageIndex;
 	[self currentPageIndexDidChange];
 }
 
