@@ -1,5 +1,27 @@
-iPhone: advanced UIScrollView tricks everyone should know (and ZoomScrollView that encapsulates them)
-=====================================================================================================
+Catalog of UIScrollView samples (iPhone)
+========================================
+
+Hey, new and old friends of ScrollingMadness,
+
+This project used to demonstrate some hacks needed to implement Photos.app-style paging+scrolling+zooming on iPhone. However I'm pleased to say that on iPhone OS 3.x no hacks are necessary any more!
+
+First, nested UIScrollView's are supported natively on 3.x. To implement paging+scrolling you just use an outer UIScrollView in paging mode, and separate UIScrollViews for each page. They work together automagically.
+
+Second, UIScrollView now supports programmatic zooming natively. See setZoomScale: and the like.
+
+Third, many of you came here to implement double-tap-to-zoom functionality. Apple now has an example called ScrollViewSuite which shows this, and contains some other tricks like tiling. You should really check it out.
+
+My ZoomScrollView component is officially retired. ScrollingMadness project is now a catalog of UIScrollView samples, in particular, it shows a way to support UI rotation in paging mode, something that still requires a bit of a hack. The old README is available too — it's not of much direct interest, but shows who you'd go about hacking UIScrollView if you ever need too.
+
+BTW I'm always looking for iPhone work — if you happen to have one, please consider sending it my way.
+
+Andrey.
+
+
+Old Content
+-----------
+
+The title used to be: “advanced UIScrollView tricks everyone should know (and ZoomScrollView that encapsulates them)”
 
 Note: the sample code in this project implements both tricks. Furthermore, the second trick is encapsulated in a nice ZoomScrollView class. So you don't really have to read all this to use the code, just download and try it.
 
